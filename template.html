@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tech Daily</title>
+<meta name="description" content="Today's technology headlines from the best tech sites, in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: light dark;
+  --bg:#edf0f4; --surface:#ffffff; --ink:#0e1726; --muted:#56627a; --line:#d3d9e3;
+  --accent:#2540e8; --accent-ink:#ffffff; --chip:#e1e6ee; --ph:#dfe5f0;
+  --head:"Bricolage Grotesque","Avenir Next","Segoe UI",system-ui,sans-serif;
+  --body:"Instrument Sans","Segoe UI",system-ui,-apple-system,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root{ --bg:#0f1319; --surface:#171c25; --ink:#e8ecf3; --muted:#97a3ba; --line:#2a3242;
+         --accent:#8ea2ff; --accent-ink:#0f1319; --chip:#222a38; --ph:#202838; }
+}
+*{box-sizing:border-box}
+html{scroll-padding-top:5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1rem/1.55 var(--body);-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:1240px;margin:0 auto;padding:0 clamp(1rem,3vw,2rem)}
+
+/* masthead */
+.mast{padding:clamp(1.75rem,5vw,3.5rem) 0 1.5rem;display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:1rem 2rem}
+.mast h1{font:700 clamp(2.6rem,8vw,5.4rem)/.92 var(--head);letter-spacing:-.035em;margin:0}
+.mast .when{font:500 1.05rem/1.4 var(--head);color:var(--muted);text-align:right}
+.mast .when strong{display:block;color:var(--ink);font-size:1.35rem}
+
+/* controls */
+.bar{position:sticky;top:0;z-index:5;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding-top:.7rem;padding-bottom:.7rem}
+.chips{display:flex;gap:.4rem;overflow-x:auto;flex:1 1 420px;scrollbar-width:none;padding:2px}
+.chips::-webkit-scrollbar{display:none}
+.chip{flex:none;border:1px solid transparent;background:var(--chip);color:var(--ink);font:500 .88rem var(--body);padding:.38rem .8rem;border-radius:999px;cursor:pointer}
+.chip small{color:var(--muted);font-size:.78rem;margin-left:.3rem}
+.chip[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.chip[aria-pressed=true] small{color:inherit;opacity:.8}
+.tools{display:flex;gap:.5rem;flex:0 1 auto}
+.tools input,.tools select{font:400 .9rem var(--body);color:var(--ink);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:.45rem .65rem;min-width:0}
+.tools input{width:11rem}
+:is(.chip,.tools input,.tools select,.card a,.lead a):focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* lead story */
+.lead{margin:1.75rem 0 1.25rem;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.lead .pic{min-height:320px}
+.lead .txt{padding:clamp(1.25rem,3vw,2.25rem);display:flex;flex-direction:column;justify-content:center;gap:.85rem}
+.lead h2{font:700 clamp(1.6rem,3vw,2.5rem)/1.08 var(--head);letter-spacing:-.02em;margin:0}
+.lead p{margin:0;color:var(--muted);font-size:1.05rem}
+.lead a{text-decoration:none}
+.lead a::after{content:"";position:absolute;inset:0}
+.lead a:hover h2{text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+
+/* grid */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1.1rem;padding-bottom:3rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;position:relative;display:flex;flex-direction:column}
+.card .pic{aspect-ratio:16/10}
+.card .body{padding:.9rem 1rem 1.1rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.card h3{font:600 1.08rem/1.28 var(--head);margin:0;letter-spacing:-.005em}
+.card a{text-decoration:none}
+.card a::after{content:"";position:absolute;inset:0}
+.card:hover h3{text-decoration:underline;text-underline-offset:3px}
+.card p{margin:0;color:var(--muted);font-size:.9rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.meta{display:flex;flex-wrap:wrap;gap:.2rem .7rem;align-items:baseline;font-size:.82rem;color:var(--muted)}
+.meta b{color:var(--ink);font-weight:600}
+.tag{color:var(--accent);font-weight:500}
+
+.pic{background:var(--ph);position:relative;overflow:hidden}
+.pic img{width:100%;height:100%;object-fit:cover;display:block}
+.pic .ph{position:absolute;inset:0;display:grid;place-items:center;font:700 3rem var(--head);color:var(--muted);opacity:.55}
+
+.empty{padding:4rem 0;text-align:center;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:1.5rem 0 3rem;color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;flex-direction:column;gap:.4rem}
+
+@media (max-width:760px){
+  .lead{grid-template-columns:1fr}
+  .lead .pic{min-height:0;aspect-ratio:16/10}
+  .mast .when{text-align:left}
+  .tools{width:100%}.tools input{flex:1;width:auto}
+}
+@media (prefers-reduced-motion:no-preference){
+  .lead{animation:rise .5s ease-out both}
+  @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+}
+</style>
+</head>
+<body>
+<header class="wrap mast">
+  <h1>Tech Daily</h1>
+  <div class="when"><strong id="today"></strong><span id="stats"></span></div>
+</header>
+
+<div class="bar">
+  <div class="wrap">
+    <div class="chips" id="chips" role="group" aria-label="Filter by topic"></div>
+    <div class="tools">
+      <input id="q" type="search" placeholder="Search headlines" aria-label="Search headlines">
+      <select id="src" aria-label="Filter by source"></select>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+  <div id="lead"></div>
+  <div class="grid" id="grid"></div>
+  <p class="empty" id="empty" hidden>No stories match. Clear the search or pick another topic.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span id="updated"></span>
+    <span id="sources"></span>
+  </div>
+</footer>
+
+<script>
+const DATA = /*__DATA__*/null;
+const $ = id => document.getElementById(id);
+const state = { cat: "All", src: "All", q: "" };
+
+if (!DATA) {
+  $("grid").innerHTML = '<p class="empty">No data yet. Run <code>python fetch_news.py</code> to build this page.</p>';
+} else init();
+
+function init() {
+  const items = DATA.items;
+  const now = new Date(DATA.generated_at);
+  $("today").textContent = now.toLocaleDateString(undefined, { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+  $("stats").textContent = `${items.length} stories from ${DATA.sources_ok.length} sites`;
+  $("updated").textContent = "Updated " + now.toLocaleString(undefined, { dateStyle: "medium", timeStyle: "short" })
+    + `. Showing stories from the last ${DATA.window_hours} hours.`;
+  $("sources").textContent = "Sources: " + DATA.sources_ok.join(", ") + ".";
+
+  const cats = ["All", ...[...new Set(items.map(i => i.category))].sort((a, b) =>
+    count(items, "category", b) - count(items, "category", a))];
+  $("chips").innerHTML = "";
+  cats.forEach(c => {
+    const b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.dataset.cat = c;
+    b.setAttribute("aria-pressed", c === "All");
+    b.innerHTML = `${esc(c)}<small>${c === "All" ? items.length : count(items, "category", c)}</small>`;
+    b.onclick = () => { state.cat = c; render(); };
+    $("chips").appendChild(b);
+  });
+
+  const srcs = ["All", ...[...new Set(items.map(i => i.source))].sort()];
+  $("src").innerHTML = srcs.map(s => `<option value="${esc(s)}">${s === "All" ? "All sites" : esc(s)}</option>`).join("");
+  $("src").onchange = e => { state.src = e.target.value; render(); };
+  $("q").oninput = e => { state.q = e.target.value.trim().toLowerCase(); render(); };
+  render();
+}
+
+function count(items, key, v) { return items.filter(i => i[key] === v).length; }
+function esc(s) { return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c])); }
+
+function ago(iso) {
+  const mins = Math.max(1, Math.round((Date.now() - new Date(iso)) / 60000));
+  const rtf = new Intl.RelativeTimeFormat(undefined, { numeric: "auto" });
+  if (mins < 60) return rtf.format(-mins, "minute");
+  if (mins < 1440) return rtf.format(-Math.round(mins / 60), "hour");
+  return rtf.format(-Math.round(mins / 1440), "day");
+}
+
+function pic(item, eager) {
+  const initial = esc(item.source.charAt(0));
+  const img = item.image
+    ? `<img src="${esc(item.image)}" alt="" loading="${eager ? "eager" : "lazy"}" referrerpolicy="no-referrer" onerror="this.remove()">`
+    : "";
+  return `<div class="pic"><div class="ph" aria-hidden="true">${initial}</div>${img}</div>`;
+}
+
+function meta(item) {
+  return `<div class="meta"><b>${esc(item.source)}</b><span>${esc(ago(item.published))}</span><span class="tag">${esc(item.category)}</span></div>`;
+}
+
+function render() {
+  document.querySelectorAll(".chip").forEach(b => b.setAttribute("aria-pressed", b.dataset.cat === state.cat));
+  let list = DATA.items.filter(i =>
+    (state.cat === "All" || i.category === state.cat) &&
+    (state.src === "All" || i.source === state.src) &&
+    (!state.q || (i.title + " " + i.summary).toLowerCase().includes(state.q)));
+
+  $("empty").hidden = list.length > 0;
+  let lead = "";
+  const leadItem = list.find(i => i.image);
+  if (leadItem && !state.q) {
+    list = list.filter(i => i !== leadItem);
+    lead = `<article class="lead">${pic(leadItem, true)}<div class="txt">${meta(leadItem)}
+      <a href="${esc(leadItem.url)}" target="_blank" rel="noopener noreferrer"><h2>${esc(leadItem.title)}</h2></a>
+      ${leadItem.summary ? `<p>${esc(leadItem.summary)}</p>` : ""}</div></article>`;
+  }
+  $("lead").innerHTML = lead;
+  $("grid").innerHTML = list.map(i => `<article class="card">${pic(i)}<div class="body">${meta(i)}
+    <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer"><h3>${esc(i.title)}</h3></a>
+    ${i.summary ? `<p>${esc(i.summary)}</p>` : ""}</div></article>`).join("");
+}
+</script>
+</body>
+</html>
